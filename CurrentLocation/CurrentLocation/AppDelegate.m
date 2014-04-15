@@ -10,7 +10,6 @@
 #import "ViewController.h"
 
 @interface AppDelegate()
-@property (nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) ViewController *vc;
 @end
 
@@ -19,11 +18,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [self getCurrentLocation];
     
-    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     self.vc = [[ViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.vc];
@@ -31,15 +30,6 @@
     
     [self.window makeKeyAndVisible];
     return YES;
-}
-
-- (void)getCurrentLocation
-{
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    self.locationManager.distanceFilter = kCLDistanceFilterNone;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [self.locationManager startUpdatingLocation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -67,24 +57,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-# pragma mark - CLLocation Delegate
-
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
-{
-    MKCoordinateSpan span;
-    span.latitudeDelta = 0.0005;
-    span.longitudeDelta = 0.007;
-    
-    MKCoordinateRegion region;
-    region.span = span;
-    region.center = newLocation.coordinate;
-    
-    [self.vc.mapView setRegion:region animated:YES];
-    self.vc.mapView.showsUserLocation = YES;
 }
 
 @end
