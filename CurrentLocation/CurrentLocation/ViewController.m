@@ -8,9 +8,12 @@
 
 #import "ViewController.h"
 
+static const int toolBarHeight = 50;
+
 @interface ViewController ()
 {
     BOOL zoomAndHoldUserLocaton;
+    BOOL mapTypeToolBarDidShow;
 }
 @property (nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) CLLocation *currentLocation;
@@ -34,6 +37,7 @@
     [self.view addSubview:self.mapView];
     
     zoomAndHoldUserLocaton = YES;
+    mapTypeToolBarDidShow = NO;
     [self getCurrentLocation];
 }
 
@@ -45,7 +49,44 @@
 
 - (IBAction)showMapTypePicker:(id)sender
 {
-    
+    if (!mapTypeToolBarDidShow) {
+        mapTypeToolBarDidShow = YES;
+        self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,
+                                                                   self.view.frame.size.height - toolBarHeight,
+                                                                   self.view.frame.size.width,
+                                                                   toolBarHeight)];
+        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects: @"Standard", @"Satellite", @"Hybrid", nil]];
+        self.segmentedControl.frame = CGRectMake(0, 0, self.toolBar.frame.size.width - 20, 30);
+        self.segmentedControl.selectedSegmentIndex = 0;
+        self.segmentedControl.tintColor = [UIColor whiteColor];
+        [self.segmentedControl addTarget:self action:@selector(segmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        UIBarButtonItem *segmentedControlButtonItem = [[UIBarButtonItem alloc] initWithCustomView:(UIView *)self.segmentedControl];
+        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        
+        self.toolBar.items = [NSArray arrayWithObjects: flexibleSpace, segmentedControlButtonItem, flexibleSpace, nil];
+        self.toolBar.barStyle = UIBarStyleBlackTranslucent;
+        [self.view addSubview:self.toolBar];
+    }
+    else {
+        [self.toolBar removeFromSuperview];
+        mapTypeToolBarDidShow = NO;
+    }
+}
+
+- (void)segmentedValueChanged:(id)sender
+{
+    UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
+    NSInteger selectedSegment = segmentedControl.selectedSegmentIndex;
+    if (selectedSegment == 0) {
+        self.mapView.mapType = MKMapTypeStandard;
+    }
+    else if (selectedSegment == 1) {
+        self.mapView.mapType = MKMapTypeSatellite;
+    }
+    else {
+        self.mapView.mapType = MKMapTypeHybrid;
+    }
 }
 
 - (void)setRegion
