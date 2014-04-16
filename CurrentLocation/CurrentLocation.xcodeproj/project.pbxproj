@@ -14,7 +14,7 @@
 		3CE6C5B818FDD1950074ECAB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C5B718FDD1950074ECAB /* main.m */; };
 		3CE6C5BC18FDD1950074ECAB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C5BB18FDD1950074ECAB /* AppDelegate.m */; };
 		3CE6C5BF18FDD1950074ECAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CE6C5BD18FDD1950074ECAB /* Main.storyboard */; };
-		3CE6C5C218FDD1950074ECAB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C5C118FDD1950074ECAB /* ViewController.m */; };
+		3CE6C5C218FDD1950074ECAB /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C5C118FDD1950074ECAB /* MapViewController.m */; };
 		3CE6C5C418FDD1950074ECAB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CE6C5C318FDD1950074ECAB /* Images.xcassets */; };
 		3CE6C5CB18FDD1950074ECAB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE6C5CA18FDD1950074ECAB /* XCTest.framework */; };
 		3CE6C5CC18FDD1950074ECAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE6C5AB18FDD1950074ECAB /* Foundation.framework */; };
@@ -46,8 +46,8 @@
 		3CE6C5BA18FDD1950074ECAB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3CE6C5BB18FDD1950074ECAB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3CE6C5BE18FDD1950074ECAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3CE6C5C018FDD1950074ECAB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3CE6C5C118FDD1950074ECAB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3CE6C5C018FDD1950074ECAB /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		3CE6C5C118FDD1950074ECAB /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		3CE6C5C318FDD1950074ECAB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3CE6C5C918FDD1950074ECAB /* CurrentLocationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CurrentLocationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE6C5CA18FDD1950074ECAB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -55,6 +55,7 @@
 		3CE6C5D418FDD1950074ECAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3CE6C5D618FDD1950074ECAB /* CurrentLocationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentLocationTests.m; sourceTree = "<group>"; };
 		3CE6C5E018FDD1A50074ECAB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3CE6C5ED18FE26630074ECAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +105,7 @@
 		3CE6C5AA18FDD1950074ECAB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3CE6C5ED18FE26630074ECAB /* QuartzCore.framework */,
 				3CE6C5E018FDD1A50074ECAB /* CoreLocation.framework */,
 				3CE6C5AB18FDD1950074ECAB /* Foundation.framework */,
 				3CE6C5AD18FDD1950074ECAB /* CoreGraphics.framework */,
@@ -119,8 +121,7 @@
 				3CE6C5BA18FDD1950074ECAB /* AppDelegate.h */,
 				3CE6C5BB18FDD1950074ECAB /* AppDelegate.m */,
 				3CE6C5BD18FDD1950074ECAB /* Main.storyboard */,
-				3CE6C5C018FDD1950074ECAB /* ViewController.h */,
-				3CE6C5C118FDD1950074ECAB /* ViewController.m */,
+				3CE6C5EC18FE25530074ECAB /* Map VC */,
 				3CE6C5C318FDD1950074ECAB /* Images.xcassets */,
 				3CE6C5B218FDD1950074ECAB /* Supporting Files */,
 			);
@@ -154,6 +155,15 @@
 				3CE6C5D318FDD1950074ECAB /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3CE6C5EC18FE25530074ECAB /* Map VC */ = {
+			isa = PBXGroup;
+			children = (
+				3CE6C5C018FDD1950074ECAB /* MapViewController.h */,
+				3CE6C5C118FDD1950074ECAB /* MapViewController.m */,
+			);
+			name = "Map VC";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,7 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CE6C5C218FDD1950074ECAB /* ViewController.m in Sources */,
+				3CE6C5C218FDD1950074ECAB /* MapViewController.m in Sources */,
 				3CE6C5BC18FDD1950074ECAB /* AppDelegate.m in Sources */,
 				3CE6C5B818FDD1950074ECAB /* main.m in Sources */,
 			);
@@ -460,6 +470,7 @@
 				3CE6C5DC18FDD1950074ECAB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3CE6C5DD18FDD1950074ECAB /* Build configuration list for PBXNativeTarget "CurrentLocationTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +479,7 @@
 				3CE6C5DF18FDD1950074ECAB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

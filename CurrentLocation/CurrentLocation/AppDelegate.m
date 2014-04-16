@@ -7,10 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "MapViewController.h"
 
 @interface AppDelegate()
-@property (nonatomic) ViewController *vc;
+@property (nonatomic) MapViewController *mvc;
 @end
 
 @implementation AppDelegate
@@ -24,8 +24,8 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    self.vc = [[ViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.vc];
+    self.mvc = [[MapViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.mvc];
     self.window.rootViewController = nav;
     
     [self.window makeKeyAndVisible];

@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Blue Owl Labs. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MapViewController.h"
 
 static const int toolBarHeight = 50;
 
-@interface ViewController ()
+@interface MapViewController ()
 {
     BOOL zoomAndHoldUserLocaton;
     BOOL mapTypeToolBarDidShow;
@@ -21,7 +21,7 @@ static const int toolBarHeight = 50;
 @property (nonatomic) UISegmentedControl *segmentedControl;
 @end
 
-@implementation ViewController
+@implementation MapViewController
 
 - (void)viewDidLoad
 {
@@ -117,6 +117,26 @@ static const int toolBarHeight = 50;
     if (zoomAndHoldUserLocaton) {
         [self setRegion];
     }
+}
+
+# pragma mark - Annotation Delegate
+
+-(MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    MKAnnotationView *pinView = nil;
+    if(annotation != self.mapView.userLocation)
+    {
+        static NSString *defaultPinID = @"com.invasivecode.pin";
+        pinView = (MKAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+        
+        if ( pinView == nil ) {
+            pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID];
+        }
+        
+        pinView.canShowCallout = YES;
+        pinView.image = [UIImage imageNamed:@"Barber"];
+    }
+    return pinView;
 }
 
 @end
