@@ -19,6 +19,7 @@ static const int toolBarHeight = 50;
 @property (nonatomic) CLLocation *currentLocation;
 @property (nonatomic) UIToolbar *toolBar;
 @property (nonatomic) UISegmentedControl *segmentedControl;
+@property (nonatomic) UIBarButtonItem *userTrackerButton;
 @end
 
 @implementation MapViewController
@@ -56,7 +57,7 @@ static const int toolBarHeight = 50;
                                                                    self.view.frame.size.width,
                                                                    toolBarHeight)];
         self.segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects: @"Standard", @"Satellite", @"Hybrid", nil]];
-        self.segmentedControl.frame = CGRectMake(0, 0, self.toolBar.frame.size.width - 20, 30);
+        self.segmentedControl.frame = CGRectMake(0, 0, self.toolBar.frame.size.width - 70, 30);
         self.segmentedControl.selectedSegmentIndex = 0;
         self.segmentedControl.tintColor = [UIColor whiteColor];
         [self.segmentedControl addTarget:self action:@selector(segmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -64,11 +65,11 @@ static const int toolBarHeight = 50;
         UIBarButtonItem *segmentedControlButtonItem = [[UIBarButtonItem alloc] initWithCustomView:(UIView *)self.segmentedControl];
         UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         
-        self.toolBar.items = [NSArray arrayWithObjects: flexibleSpace, segmentedControlButtonItem, flexibleSpace, nil];
+        self.toolBar.items = [NSArray arrayWithObjects:flexibleSpace, [self getTrackerButton], flexibleSpace, segmentedControlButtonItem, flexibleSpace, nil];
         self.toolBar.barStyle = UIBarStyleBlackTranslucent;
         [self.view addSubview:self.toolBar];
     }
-    else {
+    else {        
         [self.toolBar removeFromSuperview];
         mapTypeToolBarDidShow = NO;
     }
@@ -87,6 +88,22 @@ static const int toolBarHeight = 50;
     else {
         self.mapView.mapType = MKMapTypeHybrid;
     }
+}
+
+- (UIBarButtonItem*)getTrackerButton
+{
+    self.userTrackerButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"UserTracker"]
+                                                              style:UIBarButtonItemStylePlain
+                                                             target:self
+                                                             action:@selector(trackUser:)];
+    self.userTrackerButton.tintColor = [UIColor whiteColor];
+    return self.userTrackerButton;
+}
+
+- (IBAction)trackUser:(id)sender
+{
+    zoomAndHoldUserLocaton = YES;
+    [self getCurrentLocation];
 }
 
 - (void)setRegion
@@ -117,26 +134,6 @@ static const int toolBarHeight = 50;
     if (zoomAndHoldUserLocaton) {
         [self setRegion];
     }
-}
-
-# pragma mark - Annotation Delegate
-
--(MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation
-{
-    MKAnnotationView *pinView = nil;
-    if(annotation != self.mapView.userLocation)
-    {
-        static NSString *defaultPinID = @"com.invasivecode.pin";
-        pinView = (MKAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-        
-        if ( pinView == nil ) {
-            pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID];
-        }
-        
-        pinView.canShowCallout = YES;
-        pinView.image = [UIImage imageNamed:@"Barber"];
-    }
-    return pinView;
 }
 
 @end
